@@ -1,0 +1,136 @@
+Sub Create_Tables()
+
+DoCmd.RunSQL "CREATE TABLE Adresse(" & _
+   "idAdresse INT," & _
+   "rue VARCHAR(50)," & _
+   "ville VARCHAR(50)," & _
+   "codePostal VARCHAR(50)," & _
+   "PRIMARY KEY(idAdresse)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Personne(" & _
+   "email VARCHAR(50)," & _
+   "nom VARCHAR(50)," & _
+   "prénom VARCHAR(50)," & _
+   "téléphone VARCHAR(50)," & _
+   "idAdresse INT NOT NULL," & _
+   "PRIMARY KEY(email)," & _
+   "FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Agence(" & _
+   "idAgence INT," & _
+   "nom VARCHAR(50)," & _
+   "téléphone VARCHAR(50)," & _
+   "capacitéMax INT," & _
+   "idAdresse INT NOT NULL," & _
+   "PRIMARY KEY(idAgence)," & _
+   "FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Client(" & _
+   "idClient INT," & _
+   "email VARCHAR(50) NOT NULL," & _
+   "PRIMARY KEY(idClient)," & _
+   "FOREIGN KEY(email) REFERENCES Personne(email)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Employé(" & _
+   "idEmployé INT," & _
+   "fonction VARCHAR(50)," & _
+   "login VARCHAR(50)," & _
+   "mdp VARCHAR(50)," & _
+   "email VARCHAR(50) NOT NULL," & _
+   "PRIMARY KEY(idEmployé)," & _
+   "FOREIGN KEY(email) REFERENCES Personne(email)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE CatégorieVéhicule(" & _
+   "libelé VARCHAR(50)," & _
+   "tarifJour DOUBLE," & _
+   "caution DOUBLE," & _
+   "PRIMARY KEY(libelé)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Devis(" & _
+   "idDevis INT," & _
+   "duréePrévue INT," & _
+   "idClient INT," & _
+   "idVoiture INT," & _
+   "optionAssurance LOGICAL," & _
+   "PRIMARY KEY(idDevis)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Facture(" & _
+   "idFActure INT," & _
+   "duréeEffective INT," & _
+   "consoCarburant DOUBLE," & _
+   "étatVéhicule VARCHAR(50)," & _
+   "PRIMARY KEY(idFActure)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE ProgrammeFidélité(" & _
+   "idProgramme INT," & _
+   "description VARCHAR(50)," & _
+   "prix DOUBLE," & _
+   "tauxRéduction INT," & _
+   "idClient INT," & _
+   "PRIMARY KEY(idProgramme)," & _
+   "FOREIGN KEY(idClient) REFERENCES Client(idClient)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Véhicule(" & _
+   "matricule VARCHAR(50)," & _
+   "marque VARCHAR(50)," & _
+   "modèle VARCHAR(50)," & _
+   "kilométrage DOUBLE," & _
+   "automatique LOGICAL," & _
+   "climatisé LOGICAL," & _
+   "typeCarburant VARCHAR(50)," & _
+   "niveauCarburant DOUBLE," & _
+   "idDevis INT," & _
+   "idClient INT," & _
+   "idFActure INT," & _
+   "idClient_1 INT," & _
+   "PRIMARY KEY(matricule)," & _
+   "UNIQUE(idDevis)," & _
+   "UNIQUE(idFActure)," & _
+   "FOREIGN KEY(idDevis) REFERENCES Devis(idDevis)," & _
+   "FOREIGN KEY(idClient) REFERENCES Client(idClient)," & _
+   "FOREIGN KEY(idFActure) REFERENCES Facture(idFActure)," & _
+   "FOREIGN KEY(idClient_1) REFERENCES Client(idClient)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE est(" & _
+   "matricule VARCHAR(50)," & _
+   "libelé VARCHAR(50)," & _
+   "PRIMARY KEY(matricule, libelé)," & _
+   "FOREIGN KEY(matricule) REFERENCES Véhicule(matricule)," & _
+   "FOREIGN KEY(libelé) REFERENCES CatégorieVéhicule(libelé)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE possède(" & _
+   "idAgence INT," & _
+   "matricule VARCHAR(50)," & _
+   "PRIMARY KEY(idAgence, matricule)," & _
+   "FOREIGN KEY(idAgence) REFERENCES Agence(idAgence)," & _
+   "FOREIGN KEY(matricule) REFERENCES Véhicule(matricule)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE réserver(" & _
+   "idClient INT," & _
+   "matricule VARCHAR(50)," & _
+   "PRIMARY KEY(idClient, matricule)," & _
+   "FOREIGN KEY(idClient) REFERENCES Client(idClient)," & _
+   "FOREIGN KEY(matricule) REFERENCES Véhicule(matricule)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE déplacer(" & _
+   "idEmployé INT," & _
+   "matricule VARCHAR(50)," & _
+   "PRIMARY KEY(idEmployé, matricule)," & _
+   "FOREIGN KEY(idEmployé) REFERENCES Employé(idEmployé)," & _
+   "FOREIGN KEY(matricule) REFERENCES Véhicule(matricule)" & _
+");"   
+
+End Sub
