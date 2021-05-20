@@ -1,12 +1,10 @@
-
-
 CREATE TABLE Adresse(
    idAdresse INT,
    rue VARCHAR(50),
    ville VARCHAR(50),
    codePostal VARCHAR(50),
    PRIMARY KEY(idAdresse)
-);   
+);
 
 CREATE TABLE Personne(
    email VARCHAR(50),
@@ -16,7 +14,7 @@ CREATE TABLE Personne(
    idAdresse INT NOT NULL,
    PRIMARY KEY(email),
    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse)
-);   
+);
 
 CREATE TABLE Agence(
    idAgence INT,
@@ -26,14 +24,14 @@ CREATE TABLE Agence(
    idAdresse INT NOT NULL,
    PRIMARY KEY(idAgence),
    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse)
-);   
+);
 
 CREATE TABLE Client(
    idClient INT,
    email VARCHAR(50) NOT NULL,
    PRIMARY KEY(idClient),
    FOREIGN KEY(email) REFERENCES Personne(email)
-);   
+);
 
 CREATE TABLE Employe(
    idEmploye INT,
@@ -43,92 +41,120 @@ CREATE TABLE Employe(
    email VARCHAR(50) NOT NULL,
    PRIMARY KEY(idEmploye),
    FOREIGN KEY(email) REFERENCES Personne(email)
-);   
+);
 
 CREATE TABLE CategorieVehicule(
-   libele VARCHAR(50),
+   idCategorie INT,
    tarifJour FLOAT,
    caution FLOAT,
-   PRIMARY KEY(libele)
-);   
+   libele VARCHAR(50),
+   PRIMARY KEY(idCategorie)
+);
 
 CREATE TABLE Devis(
    idDevis INT,
    dureePrevue INT,
    idClient INT,
-   idVoiture INT,
+   idVehicule INT,
    optionAssurance BOOL,
    PRIMARY KEY(idDevis)
-);  
+);
 
 CREATE TABLE Facture(
    idFActure INT,
    dureeEffective INT,
    consoCarburant FLOAT,
    etatVehicule VARCHAR(50),
-   PRIMARY KEY(idFActure)
-);   
+   dateFacture DATE,
+   idClient INT NOT NULL,
+   PRIMARY KEY(idFActure),
+   FOREIGN KEY(idClient) REFERENCES Client(idClient)
+);
 
 CREATE TABLE ProgrammeFidelite(
    idProgramme INT,
    description VARCHAR(50),
    prix FLOAT,
-   tauxReduction INT,
-   idClient INT,
-   PRIMARY KEY(idProgramme),
-   FOREIGN KEY(idClient) REFERENCES Client(idClient)
-);  
+   tauxRéduction INT,
+   duree INT,
+   PRIMARY KEY(idProgramme)
+);
 
 CREATE TABLE Vehicule(
-   matricule VARCHAR(50),
+   idVehicule INT,
+   matricule VARCHAR(50) NOT NULL,
    marque VARCHAR(50),
    modele VARCHAR(50),
    kilometrage FLOAT,
    automatique BOOL,
    climatise BOOL,
    typeCarburant VARCHAR(50),
-   niveauCarburant FLOAT,
    idDevis INT,
    idClient INT,
-   idFActure INT,
-   idClient_1 INT,
-   PRIMARY KEY(matricule),
+   PRIMARY KEY(idVehicule),
    UNIQUE(idDevis),
-   UNIQUE(idFActure),
    FOREIGN KEY(idDevis) REFERENCES Devis(idDevis),
-   FOREIGN KEY(idClient) REFERENCES Client(idClient),
-   FOREIGN KEY(idFActure) REFERENCES Facture(idFActure),
-   FOREIGN KEY(idClient_1) REFERENCES Client(idClient)
-);   
+   FOREIGN KEY(idClient) REFERENCES Client(idClient)
+);
 
 CREATE TABLE est(
-   matricule VARCHAR(50),
-   libele VARCHAR(50),
-   PRIMARY KEY(matricule, libele),
-   FOREIGN KEY(matricule) REFERENCES Vehicule(matricule),
-   FOREIGN KEY(libele) REFERENCES CategorieVehicule(libele)
-);   
+   idVehicule INT,
+   idCategorie INT,
+   PRIMARY KEY(idVehicule, idCategorie),
+   FOREIGN KEY(idVehicule) REFERENCES Vehicule(idVehicule),
+   FOREIGN KEY(idCategorie) REFERENCES CategorieVehicule(idCategorie)
+);
 
 CREATE TABLE possede(
    idAgence INT,
-   matricule VARCHAR(50),
-   PRIMARY KEY(idAgence, matricule),
+   idVehicule INT,
+   date_t VARCHAR(50),
+   PRIMARY KEY(idAgence, idVehicule, date_t),
    FOREIGN KEY(idAgence) REFERENCES Agence(idAgence),
-   FOREIGN KEY(matricule) REFERENCES Vehicule(matricule)
-);   
+   FOREIGN KEY(idVehicule) REFERENCES Vehicule(idVehicule)
+);
 
 CREATE TABLE reserver(
    idClient INT,
-   matricule VARCHAR(50),
-   PRIMARY KEY(idClient, matricule),
+   idVehicule INT,
+   date_t VARCHAR(50),
+   dateFin DATE,
+   PRIMARY KEY(idClient, idVehicule, date_t),
    FOREIGN KEY(idClient) REFERENCES Client(idClient),
-   FOREIGN KEY(matricule) REFERENCES Vehicule(matricule)
-); 
+   FOREIGN KEY(idVehicule) REFERENCES Vehicule(idVehicule)
+);
 
 CREATE TABLE deplacer(
+   idAgence INT,
    idEmploye INT,
-   matricule VARCHAR(50),
-   PRIMARY KEY(idEmploye, matricule),
+   idVehicule INT,
+   PRIMARY KEY(idAgence, idEmploye, idVehicule),
+   FOREIGN KEY(idAgence) REFERENCES Agence(idAgence),
    FOREIGN KEY(idEmploye) REFERENCES Employe(idEmploye),
-   FOREIGN KEY(matricule) REFERENCES Vehicule(matricule)
-);   
+   FOREIGN KEY(idVehicule) REFERENCES Vehicule(idVehicule)
+);
+
+CREATE TABLE souscrire(
+   idClient INT,
+   idProgramme INT,
+   date_t VARCHAR(50),
+   dateFin DATE,
+   PRIMARY KEY(idClient, idProgramme, date_t),
+   FOREIGN KEY(idClient) REFERENCES Client(idClient),
+   FOREIGN KEY(idProgramme) REFERENCES ProgrammeFidelite(idProgramme)
+);
+
+CREATE TABLE ligne_facture(
+   idVehicule INT,
+   idFActure INT,
+   date_t VARCHAR(50),
+   dateRetour DATE,
+   dateRetourReel DATE,
+   dateDebutReel DATE,
+   niveauCarburant FLOAT,
+   assurance BOOL,
+   etat VARCHAR(50),
+   PRIMARY KEY(idVehicule, idFActure, date_t),
+   FOREIGN KEY(idVehicule) REFERENCES Vehicule(idVehicule),
+   FOREIGN KEY(idFActure) REFERENCES Facture(idFActure)
+);
