@@ -1,14 +1,14 @@
 Personnes (femme)
 
-Emma DUBOIS emma.dubois@gmail.com 0664017999
+Emma DUBOIS emma.dubois@gmail.com 0664017999 (employé)
 Alice MOREAU alice.moreau@gmail.com 0778865354 
 Apolline FERRY apoline.ferry@gmail.com 0652392487 
 Océane HUET oceane.huet@gmail.com 0715393643 
 Sarah OLIVIER sarah.oliver@gmail.com 0764284652 
 Candice MASSON candice.masson@gmail.com 0668187898 
-Thaïs COMBES thaïs.combes@gmail.com 0657122059 
+Thaïs COMBES thaïs.combes@gmail.com 0657122059 (employé)
 Louisa GUILLOT louisa.guillot@gmail.com 0797642668 
-Lou MILLET lou.millet@gmail.com 0637525364 0637525364
+Lou MILLET lou.millet@gmail.com 0637525364 
 Manon VIDAL manon.vidal@gmail.com 0764326675
 
 Personnes (hommes)
@@ -18,15 +18,15 @@ Simon BENOIT simon.benoit@gmail.com 0738582420
 Alexandre COLLET alexandre.collet@gmail.com 0765335020 
 Karim RIVIERE karim.riviere@gmail.com 0700009611 
 Noa ROCHE noa.roche@gmail.com 0776371515 
-Victor FABRE victor.fabre@gmail.com 0644830840 
+Victor FABRE victor.fabre@gmail.com 0644830840  (employé)
 Marius MOREL marius.morel@gmail.com 0682444696 
 Youssef ACHOUR youssef.achour@gmail.com 0600111547 
 Isaac PELLETIER isaac.pelletier@gmail.com 0605411265 
-Axel CLERC axel.clerc@gmail.com 0650602203 
+Axel CLERC axel.clerc@gmail.com 0650602203  (employé)
 
 Agences
-1 rentcar1 0661566829 45
-2 rentcar2 0657435626 20
+1 rentcar1 0161566829 capacite:45 idadresse:20 coor:lat48.7833,long2
+2 rentcar2 0157435626 capacite:20 idadresse:21 coor:lat48.85,long2.6333
 
 Adresses (20 des personnes, 2 des agences):
 0 "4 Georges Ritz" ANGERVILLE 91670
@@ -55,7 +55,7 @@ Adresses (20 des personnes, 2 des agences):
 
 Véhicules (50)
 
-Audi  a3  cat:1  km:2064  imat:WS-378-GM  id:0  clim:true  carburant:SP-95  automatique:true
+Audi  a3  cat:1  km:z  imat:WS-378-GM  id:0  clim:true  carburant:SP-95  automatique:true
 Peugeot  3008  cat:1  km:24957  imat:KG-653-KJ  id:1  clim:true  carburant:essence  automatique:false
 Fiat  500  cat:0  km:430  imat:AQ-225-LE  id:2  clim:false  carburant:essence  automatique:false
 Citroën  c1  cat:0  km:18300  imat:MY-281-LZ  id:3  clim:false  carburant:essence  automatique:false
@@ -86,7 +86,7 @@ Fiat  500  cat:0  km:12937  imat:WO-680-HW  id:27  clim:false  carburant:essence
 Citroën  c3  cat:0  km:23541  imat:SB-201-QF  id:28  clim:false  carburant:essence  automatique:false
 Fiat  panda  cat:0  km:13647  imat:RX-468-DP  id:29  clim:false  carburant:essence  automatique:false
 Bmw  x6  cat:2  km:10793  imat:CU-338-LU  id:30  clim:true  carburant:SP-95  automatique:true
-Fiat  panda  cat:0  km:13705  imat:JE-010-YC  id:31  clim:false  carburant:essence  automatique:false
+Volkswagen  golf  cat:0  km:13705  imat:JE-010-YC  id:31  clim:false  carburant:essence  automatique:false
 Peugeot  208  cat:0  km:22544  imat:EP-494-UH  id:32  clim:false  carburant:essence  automatique:false
 Peugeot  508  cat:1  km:16501  imat:IS-693-EA  id:33  clim:true  carburant:essence  automatique:false
 Renault  talisman  cat:1  km:871  imat:CX-203-PI  id:34  clim:true  carburant:gazole  automatique:false
@@ -99,9 +99,14 @@ Audi  a5  cat:2  km:24035  imat:YR-481-GX  id:40  clim:true  carburant:gazole  a
 Tesla  model3  cat:1  km:24279  imat:TO-733-FU  id:41  clim:true  carburant:electrique  automatique:true
 Peugeot  208  cat:0  km:13975  imat:AJ-493-ZX  id:42  clim:false  carburant:essence  automatique:false
 Opel  crossland  cat:1  km:4695  imat:IN-398-ZK  id:43  clim:true  carburant:essence  automatique:true
-Fiat  panda  cat:0  km:20170  imat:EP-273-CF  id:44  clim:false  carburant:essence  automatique:false
+Volkswagen  polo  cat:0  km:20170  imat:EP-273-CF  id:44  clim:false  carburant:essence  automatique:false
 Bmw  x3  cat:1  km:19064  imat:ZY-974-OU  id:45  clim:true  carburant:essence  automatique:true
 Tesla  modelS  cat:1  km:19806  imat:QI-648-PI  id:46  clim:true  carburant:electrique  automatique:false
 Nissan  juke  cat:0  km:22771  imat:AE-216-CN  id:47  clim:false  carburant:essence  automatique:false
 Renault  zoe  cat:0  km:10656  imat:ZD-389-NT  id:48  clim:false  carburant:electrique  automatique:false
 Volkswagen  polo  cat:0  km:24804  imat:XT-824-BH  id:49  clim:false  carburant:essence  automatique:false
+
+CategorieVehicule 
+0 20 100 economique
+1 50 200 confort
+2 200 500 luxe
